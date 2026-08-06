@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comercial MARCOS - Venta de Colchones y Somieres</title>
+  <style>
+    :root {
+      --bg-main: #f1f3f5;          /* Fondo plomo claro elegante */
+      --card-bg: #ffffff;          /* Blanco puro para tarjetas */
+      --text-dark: #121619;        /* Negro intenso para títulos */
+      --text-body: #2b2d42;        /* Plomo oscuro para lectura fácil */
+      --text-muted: #6c757d;       /* Gris neutro para subtítulos */
+      --border-color: #d1d5db;     /* Borde plomo suave */
+      --primary-accent: #212529;   /* Negro charcoal para botones principales */
+      --badge-bg: #e9ecef;         /* Plomo suave para etiquetas */
+      --price-color: #0f5132;       /* Verde oscuro discreto / elegante */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-body);
+      line-height: 1.6;
+      padding-bottom: 2rem;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a1d20 0%, #343a40 100%);
+      color: #ffffff;
+      padding: 2.5rem 1rem;
+      text-align: center;
+      border-bottom: 4px solid #000000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.3rem;
+      color: #ffffff;
+    }
+
+    header p {
+      color: #ced4da;
+      font-size: 1.05rem;
+    }
+
+    .location-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #f8f9fa;
+      padding: 0.4rem 1.2rem;
+      border-radius: 20px;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.2rem;
+    }
+
+    /* Navegación y Pestañas */
+    .section-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 0.75rem 1.4rem;
+      background: #ffffff;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary-accent);
+      color: var(--primary-accent);
+    }
+
+    .tab-btn.active {
+      background: var(--primary-accent);
+      color: #ffffff;
+      border-color: var(--primary-accent);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Buscador */
+    .controls {
+      margin-bottom: 2.5rem;
+      background: #ffffff;
+      padding: 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      border: 1px solid var(--border-color);
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: #495057;
+      background-color: #ffffff;
+    }
+
+    /* Títulos de Sección */
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 0.3rem;
+      display: inline-block;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: var(--primary-accent);
+      margin-top: 4px;
+      border-radius: 2px;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .section-block {
+      margin-bottom: 3rem;
+    }
+
+    /* Grid de Productos */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.8rem;
+    }
+
+    /* Tarjetas (Cards) */
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      border-color: #adb5bd;
+    }
+
+    .card-header {
+      background: #f8f9fa;
+      padding: 1.1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    .card-body {
+      padding: 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .feature-box {
+      background: #f1f3f5;
+      border-left: 4px solid #495057;
+      padding: 0.85rem;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 1.2rem;
+      font-size: 0.88rem;
+      color: #343a40;
+    }
+
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.2rem;
+      font-size: 0.92rem;
+    }
+
+    .price-table tr {
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .price-table td {
+      padding: 0.45rem 0;
+    }
+
+    .price-table .size {
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .price-table .val {
+      text-align: right;
+      font-weight: 700;
+      color: var(--price-color);
+    }
+
+    .btn-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: #212529;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-weight: 700;
+      text-align: center;
+      transition: background-color 0.2s;
+    }
+
+    .btn-whatsapp:hover {
+      background: #343a40;
+    }
+
+    footer {
+      background: #121619;
+      color: #adb5bd;
+      text-align: center;
+      padding: 2.5rem 1rem;
+      margin-top: 4rem;
+      font-size: 0.9rem;
+      border-top: 1px solid #212529;
+    }
+
+    footer p {
+      margin-bottom: 0.4rem;
+    }
+
+    /* Reglas para la generación de PDF / Impresión */
+    @media print {
+      .section-tabs, .controls, .btn-whatsapp {
+        display: none !important;
+      }
+      body {
+        background: #ffffff;
+        color: #000000;
+      }
+      .container {
+        margin: 0;
+        max-width: 100%;
+      }
+      .section-block {
+        page-break-inside: avoid;
+      }
+      .card {
+        border: 1px solid #6c757d;
+        box-shadow: none;
+        page-break-inside: avoid;
+      }
+      .feature-box {
+        background: #f8f9fa;
+        border-left-color: #000000;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Comercial de Colchones "MARCOS"</h1>
+    <p>Catálogo Especializado & Tienda Virtual</p>
+    <div class="location-badge">📍 El Alto: Calle 12 (Cerca de la Av. Tiwanaku)</div>
+  </header>
+
+  <div class="container">
+    <!-- Pestañas de Navegación -->
+    <div class="section-tabs">
+      <button class="tab-btn active" onclick="showSector('all', this)">📌 Ver Todo</button>
+      <button class="tab-btn" onclick="showSector('pocket', this)">🌙 Colchones Pocket</button>
+      <button class="tab-btn" onclick="showSector('espuma', this)">🛏️ Colchones de Espuma</button>
+      <button class="tab-btn" onclick="showSector('somier', this)">🏗️ Somieres & Estructuras Metálicas</button>
+    </div>
+
+    <!-- Buscador -->
+    <div class="controls">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Buscar por modelo o tecnología (ej. Viscoelástica, Ortopédico, Acero)..." onkeyup="filterProducts()">
+      </div>
+    </div>
+
+    <!-- SECTOR 1: POCKET -->
+    <div class="section-block" id="sector-pocket">
+      <h2 class="section-title">🌙 Sector 1: Colchones Resortes Pocket</h2>
+      <p class="section-desc">Resortes empaquetados individualmente para cero transferencia de movimiento y soporte adaptativo.</p>
+      <div class="grid" id="grid-pocket"></div>
+    </div>
+
+    <!-- SECTOR 2: ESPUMA -->
+    <div class="section-block" id="sector-espuma">
+      <h2 class="section-title">🛏️ Sector 2: Colchones de Espuma (Alta y Media Densidad)</h2>
+      <p class="section-desc">Soporte indeformable de alta densidad, alineación ortopédica y cuidado del sistema lumbar.</p>
+      <div class="grid" id="grid-espuma"></div>
+    </div>
+
+    <!-- SECTOR 3: SOMIERES Y ESTRUCTURAS METÁLICAS -->
+    <div class="section-block" id="sector-somier">
+      <h2 class="section-title">🏗️ Sector 3: Somieres & Estructuras Metálicas / Madera</h2>
+      <p class="section-desc">Bases súper reforzadas con tubos de acero, sistemas silenciosos antirruido y respaldos acolchados.</p>
+      <div class="grid" id="grid-somier"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p><strong>Comercial MARCOS</strong> - Tu descanso garantizado</p>
+    <p>El Alto, Bolivia | Pedidos directos por WhatsApp</p>
+  </footer>
+
+  <script>
+    const productsData = [
+      // SECTOR 1: POCKET
+      {
+        sector: 'pocket',
+        title: 'Visco Negro Pocket',
+        info: '✨ <strong>Capa Viscoelástica (Memory Foam):</strong> Espuma termosensible que reduce los puntos de presión en hombros y cadera. Tapizado en tela Jacquard suave con tratamiento antiácaros.',
+        prices: {'1 ½ Plz': 1450, '2 Plz': 1700, '2 ½ Plz': 2000}
+      },
+      {
+        sector: 'pocket',
+        title: 'Fantasi Pocket',
+        info: '💎 <strong>Independencia Total de Movimiento:</strong> Núcleo de resortes empaquetados uno a uno. Excelente aislamiento térmico y acolchado mullido de alta densidad.',
+        prices: {'1 ½ Plz': 1400, '2 Plz': 1800, '2 ½ Plz': 2050, '3 Plz': 2800}
+      },
+      {
+        sector: 'pocket',
+        title: 'Bio Negro Pocket',
+        info: '🌿 <strong>Fibras Orgánicas e Hipoalergénicas:</strong> Tejido ecológico y fresco que evita la humedad. Refuerzo ortopédico perimetral para una postura saludable.',
+        prices: {'1 ½ Plz': 1500, '2 Plz': 1850, '2 ½ Plz': 2050}
+      },
+      {
+        sector: 'pocket',
+        title: 'Bambo 2 Pestañas',
+        info: '🎍 <strong>Doble Pillow Top & Fibra de Bambú:</strong> Capa extra de soporte en ambas caras para maximizar su durabilidad. Tela de bambú transpirable y antibacterial.',
+        prices: {'1 ½ Plz': 1500, '2 Plz': 1900, '2 ½ Plz': 2100}
+      },
+      {
+        sector: 'pocket',
+        title: 'Gani 2 Pestañas',
+        info: '☁️ <strong>Soporte Mullido Reforzado:</strong> Doble almohadillado superior con estructura de marco de acero para evitar deformaciones laterales.',
+        prices: {'1 ½ Plz': 1450, '2 Plz': 1850, '2 ½ Plz': 2100}
+      },
+      {
+        sector: 'pocket',
+        title: 'Climatic Pocket',
+        info: '❄️ <strong>Control Térmico Activo:</strong> Tejido regulador de temperatura que ayuda a disipar el calor para un descanso fresco durante toda la noche.',
+        prices: {'1 ½ Plz': 1480, '2 Plz': 1750, '2 ½ Plz': 1980}
+      },
+      {
+        sector: 'pocket',
+        title: 'Ergo Salud Pocket',
+        info: '🩺 <strong>Diseño Ergonómico Saludable:</strong> Estructura diseñada para prevenir molestias en la zona lumbar distribuyendo el peso uniformemente.',
+        prices: {'1 ½ Plz': 1400, '2 Plz': 1700, '2 ½ Plz': 1930}
+      },
+
+      // SECTOR 2: ESPUMA
+      {
+        sector: 'espuma',
+        title: 'Korigoma 25 cm',
+        info: '🏋️ <strong>Espuma de Extra Alta Densidad (HD):</strong> Estructura ultracompacta indeformable para soportar gran peso continuo manteniendo firmeza.',
+        prices: {'1 ½ Plz': 980, '2 Plz': 1100, '2 ½ Plz': 1180}
+      },
+      {
+        sector: 'espuma',
+        title: 'Kunkuu Primera',
+        info: '👑 <strong>Espuma Flex Alta Resiliencia:</strong> Núcleo firme ortopédico recubierto en tela de algodón matelaseada de gran resistencia.',
+        prices: {'1 ½ Plz': 980, '2 Plz': 1080, '2 ½ Plz': 1280}
+      },
+      {
+        sector: 'espuma',
+        title: 'Wara 25 cm',
+        info: '⭐ <strong>Soporte Rígido y Firme:</strong> Espuma resiliente con amplia durabilidad diaria y funda protectora de fácil mantenimiento.',
+        prices: {'1 ½ Plz': 550, '2 Plz': 680, '2 ½ Plz': 750, '3 Plz': 1150}
+      },
+      {
+        sector: 'espuma',
+        title: 'Fantasi Esponja',
+        info: '🛡️ <strong>Densidad Intermedia Confort:</strong> Equilibrio óptimo entre firmeza y adaptabilidad. Excelente aislamiento frente al frío.',
+        prices: {'1 ½ Plz': 650, '2 Plz': 750, '2 ½ Plz': 800}
+      },
+      {
+        sector: 'espuma',
+        title: 'Gaviota 25 cm',
+        info: '🕊️ <strong>Espuma Flex Tradicional:</strong> Firmeza estándar acolchada con tela resistente a la fricción prolongada.',
+        prices: {'1 ½ Plz': 680, '2 Plz': 780, '2 ½ Plz': 900}
+      },
+
+      // SECTOR 3: SOMIERES Y ESTRUCTURAS METÁLICAS
+      {
+        sector: 'somier',
+        title: 'Somier Brasilero Metálico/Madera',
+        info: '⚙️ <strong>Estructura Metálica de Alta Resistencia:</strong> Chasis de tubos de acero reforzados con travesaños de madera tratada. Patas metálicas antirruido.',
+        prices: {'1 ½ Plz': 680, '2 Plz': 780, '2 ½ Plz': 1100, '3 Plz': 1200}
+      },
+      {
+        sector: 'somier',
+        title: 'Catres Metálicos Reforzados',
+        info: '🛠️ <strong>Construcción 100% Acero Heavy Duty:</strong> Tubos metálicos de grueso calibre con pintura al horno anticorrosiva y soporte superior.',
+        prices: {'1 ½ Plz': 1000, '2 Plz': 1100, '2 ½ Plz': 1300}
+      },
+      {
+        sector: 'somier',
+        title: 'Juego Somier Metálico + Espaldar',
+        info: '✨ <strong>Conjunto Completo Elegante:</strong> Base metálica/madera reforzada + Espaldar cabezal con tapizado capitoneado en ecocuero/tela fácil de limpiar.',
+        prices: {'1 ½ Plz': 1300, '2 Plz': 1500, '2 ½ Plz': 1900, '3 Plz': 2200}
+      },
+      {
+        sector: 'somier',
+        title: 'Espaldar Moderno Tapizado',
+        info: '🛋️ <strong>Respaldo Capitoneado Anatómico:</strong> Estructura sólida de madera para fijación a la pared o somier, acolchado en espuma soft.',
+        prices: {'1 ½ Plz': 680, '2 Plz': 780, '2 ½ Plz': 800, '3 Plz': 880}
+      }
+    ];
+
+    function renderSector(sectorId, gridId) {
+      const container = document.getElementById(gridId);
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      container.innerHTML = '';
+
+      const filtered = productsData.filter(p => {
+        const matchesSector = (p.sector === sectorId);
+        const matchesSearch = p.title.toLowerCase().includes(search) || p.info.toLowerCase().includes(search);
+        return matchesSector && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; color: #6c757d; font-style: italic;">No hay modelos disponibles.</p>';
+        return;
+      }
+
+      filtered.forEach(p => {
+        let priceRows = '';
+        for (const [size, price] of Object.entries(p.prices)) {
+          priceRows += `<tr><td class="size">${size}</td><td class="val">${price} Bs.</td></tr>`;
+        }
+
+        const msg = encodeURIComponent(`Hola Comercial MARCOS, deseo consultar sobre el modelo "${p.title}".`);
+
+        const card = `
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">${p.title}</h3>
+            </div>
+            <div class="card-body">
+              <div class="feature-box">${p.info}</div>
+              <table class="price-table">${priceRows}</table>
+              <a href="https://wa.me/59100000000?text=${msg}" target="_blank" class="btn-whatsapp">
+                💬 Pedir por WhatsApp
+              </a>
+            </div>
+          </div>
+        `;
+        container.innerHTML += card;
+      });
+    }
+
+    function filterProducts() {
+      renderSector('pocket', 'grid-pocket');
+      renderSector('espuma', 'grid-espuma');
+      renderSector('somier', 'grid-somier');
+    }
+
+    function showSector(sector, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const sPocket = document.getElementById('sector-pocket');
+      const sEspuma = document.getElementById('sector-espuma');
+      const sSomier = document.getElementById('sector-somier');
+
+      if (sector === 'all') {
+        sPocket.style.display = 'block';
+        sEspuma.style.display = 'block';
+        sSomier.style.display = 'block';
+      } else {
+        sPocket.style.display = sector === 'pocket' ? 'block' : 'none';
+        sEspuma.style.display = sector === 'espuma' ? 'block' : 'none';
+        sSomier.style.display = sector === 'somier' ? 'block' : 'none';
+      }
+    }
+
+    filterProducts();
+  </script>
+</body>
+</html>
